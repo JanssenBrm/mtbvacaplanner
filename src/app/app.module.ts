@@ -3,16 +3,23 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { MapComponent } from './map/map.component';
+import {RoutesService} from "./services/routes.service";
+import { ListComponent } from './list/list.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MapComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [
+    RoutesService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

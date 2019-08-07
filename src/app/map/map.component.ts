@@ -7,6 +7,7 @@ import BingMaps from 'ol/source/BingMaps.js';
 import VectorSource from 'ol/source/Vector.js';
 import XYZ from 'ol/source/XYZ.js'
 import {RoutesService} from "../services/routes.service";
+import {transform as transformProj} from 'ol/proj.js';
 
 @Component({
   selector: 'app-map',
@@ -31,6 +32,9 @@ export class MapComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    if (changes.routes && this.routes){
+      this.addLayers();
+    }
     if (changes.activeRouteId) {
       this.updateLayerVisibility(this.activeRouteId);
     }
@@ -42,18 +46,20 @@ export class MapComponent implements OnInit, OnChanges {
         url: 'https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYnJhbWphbnNzZW4iLCJhIjoiY2prZTBvdmxnMWtuczNrbnZ5dnJobzN6NSJ9.T3w_c9JDKgmQKBNEZR2YPQ'
       })
     });
-
-    this.layers = [];
-
     this.map = new Map({
       layers: [background],
       target: document.getElementById('map'),
       view: new View({
         center: [1208099.0260418092,5979680.96461715],
-        zoom: 12
+        zoom: 4
       })
     });
 
+
+  }
+
+  addLayers(){
+    this.layers = [];
     this.routes.forEach(route => {
       const layer = route.layer;
       layer.visible = layer.id === this.activeRouteId;
@@ -67,6 +73,11 @@ export class MapComponent implements OnInit, OnChanges {
       this.layers.forEach(l => {
         console.log(l.id);
         l.layer.setVisible(l.id === id);
+
+        if(l.layer.visible) {
+          this.map.getView().setCenter(transformProj(l.ride.center, 'EPSG:4326', 'EPSG:3857'));
+          this.map.getView().setZoom(13);
+        }
         return l;
       });
     }

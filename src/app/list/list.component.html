@@ -1,7 +1,21 @@
 <div class="list">
   <div *ngFor="let route of routes" (click)="setActiveRoute(route.id)">
     <div class="route_title">
-      ROUTE
+      {{route.name}}
+    </div>
+    <div class="info">
+      <div>
+        <span>{{route.ride.distance}}</span>km
+      </div>
+      <div>
+        <span>{{route.ride.duration}}</span>
+      </div>
+      <div>
+        <span>{{route.ride.ascent}}</span>m
+      </div>
+      <div>
+        <span>{{route.ride.descent}}</span>m
+      </div>
     </div>
   </div>
 </div>

@@ -6,3 +6,6 @@
     <app-map [routes]="routes" [activeRouteId]="activeRouteId"></app-map>
   </div>
 </div>
+<div *ngIf="activeRoute" class="chart">
+  <app-chart [route]="activeRoute"></app-chart>
+</div>

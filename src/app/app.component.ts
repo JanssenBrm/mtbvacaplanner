@@ -11,6 +11,7 @@ export class AppComponent implements OnInit {
 
   routes: any;
   activeRouteId: number;
+  activeRoute: any;
 
   constructor(private routeService: RoutesService) { }
 
@@ -19,14 +20,15 @@ export class AppComponent implements OnInit {
   }
 
   getRoutes(){
-    const routes = [];
-    this.routeService.getRoutes().forEach(route => {
-      routes.push(route);
+    this.routeService.getRoutes().subscribe(routes => {
+      this.routes = routes;
+      console.log(routes);
     });
-    this.routes = routes;
+
   }
 
   activateRoute(id: number){
     this.activeRouteId = id;
+    this.activeRoute = this.routes.find(r => r.id === id);
   }
 }

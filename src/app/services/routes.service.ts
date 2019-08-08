@@ -112,11 +112,14 @@ export class RoutesService {
     let ascent = 0, descent = 0;
     let heightProfile = [];
     let durationSec = 0;
-    let distance = this.getDistance(points.map(p => [p.lon, p.lat]));
+    let distance = this.getTotalDistance(points.map(p => [p.lon, p.lat]));
     let center = this.getCenter(points.map(p => [p.lon, p.lat]));
 
+    let tmpDist = 0;
     points.forEach((p, idx) => {
-      heightProfile.push(p.elevation);
+
+      tmpDist = tmpDist + (idx > 0 ? this.getDistance([[p.lon, p.lat], [points[idx - 1].lon, points[idx - 1].lat]]) : 0);
+      heightProfile.push([tmpDist, p.elevation]);
 
       if(idx > 0){
         const diff = Math.round(p.elevation - points[idx - 1].elevation);
@@ -143,6 +146,9 @@ export class RoutesService {
   }
 
   getDistance(points){
+    return turf.length(turf.lineString(points));
+  }
+  getTotalDistance(points){
     return Math.round(turf.length(turf.lineString(points)) * 10) / 10;
   }
   getCenter(points){

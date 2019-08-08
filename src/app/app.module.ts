@@ -8,6 +8,7 @@ import {RoutesService} from "./services/routes.service";
 import { ListComponent } from './list/list.component';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import { ChartComponent } from './chart/chart.component';
+import {HighchartsChartModule} from "highcharts-angular";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ChartComponent } from './chart/chart.component';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    HighchartsChartModule
   ],
   providers: [
     RoutesService

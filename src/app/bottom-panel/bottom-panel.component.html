@@ -6,6 +6,7 @@
   </div>
 
   <div class="content">
+    <app-overview *ngIf="tab === 'overview'" [routes]="routes" [activeRouteId]="activeRouteId"></app-overview>
     <app-chart *ngIf="tab === 'profile'" [routes]="routes" [activeRouteId]="activeRouteId"></app-chart>
     <app-weather  *ngIf="tab === 'weather'" [routes]="routes" [activeRouteId]="activeRouteId"></app-weather>
   </div>

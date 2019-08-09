@@ -114,6 +114,7 @@ export class RoutesService {
     let durationSec = 0;
     let distance = this.getTotalDistance(points.map(p => [p.lon, p.lat]));
     let center = this.getCenter(points.map(p => [p.lon, p.lat]));
+    let start = [points[0].lon, points[0].lat];
 
     let tmpDist = 0;
     points.forEach((p, idx) => {
@@ -141,7 +142,8 @@ export class RoutesService {
       heightProfile,
       duration,
       distance,
-      center
+      center,
+      start
     }
   }
 

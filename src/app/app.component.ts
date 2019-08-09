@@ -29,5 +29,6 @@ export class AppComponent implements OnInit {
   activateRoute(id: number){
     this.activeRouteId = id;
     this.activeRoute = Object.assign({}, this.routes.find(r => r.id === id));
+
   }
 }

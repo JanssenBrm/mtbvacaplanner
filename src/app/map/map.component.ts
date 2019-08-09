@@ -12,6 +12,7 @@ import {LocationService} from "../services/location.service";
 import Feature from 'ol/Feature.js';
 import {Icon, Style} from 'ol/style.js';
 import Point from 'ol/geom/Point.js';
+import Overlay from 'ol/Overlay';
 
 @Component({
   selector: 'app-map',
@@ -31,6 +32,10 @@ export class MapComponent implements OnInit, OnChanges {
   map: Map;
   layers: any[];
   poiLayer: any;
+
+  tooltip: any;
+  overlay: any;
+
   constructor(private routeService: RoutesService, private locationService: LocationService) { }
 
   ngOnInit() {
@@ -55,11 +60,18 @@ export class MapComponent implements OnInit, OnChanges {
       })
     });
 
+    this.tooltip = document.getElementById('tooltip');
+    this.overlay = new Overlay({
+      element: this.tooltip,
+      offset: [0, -40],
+      positioning: 'top-center'
+    });
+
     this.poiLayer = new VectorSource({features: []});
     const poiLayer = new VectorLayer({
-     /* style: function(feature) {
+      style: function(feature) {
         return feature.get('style');
-      },*/
+      },
       source: this.poiLayer
     });
     this.map = new Map({
@@ -70,8 +82,23 @@ export class MapComponent implements OnInit, OnChanges {
         zoom: 4
       })
     });
+    this.map.addOverlay(this.overlay);
+
+    this.map.on('pointermove', (evt) => this.displayTooltip(evt, this.tooltip, this.overlay));
 
 
+  }
+
+  displayTooltip(evt, tooltip, overlay) {
+    var pixel = evt.pixel;
+    var feature = evt.map.forEachFeatureAtPixel(pixel, function(feature) {
+      return feature;
+    });
+    tooltip.style.display = feature && feature.get('location_name') ? '' : 'none';
+    if (feature) {
+      overlay.setPosition(evt.coordinate);
+      tooltip.innerHTML = `${feature.get('location_name')}`;
+    }
   }
 
   addLayers(){
@@ -101,18 +128,20 @@ export class MapComponent implements OnInit, OnChanges {
 
   showPOIs(){
     this.poiLayer.clear();
-    ['parking'].forEach(type => {
+    ['parking', 'restaurant', 'cafe'].forEach(type => {
       this.getPointsOfInterest(type);
     })
   }
   getPointsOfInterest(type: string){
     this.locationService.getPointsOfInterest(this.activeRoute.ride.start[0],this.activeRoute.ride.start[1], type, 1000).subscribe((data: any[]) => {
-      console.log(data);
       const features = [];
       data.forEach(f => {
         const feature = new Feature(new Point(f.location));
+        feature.setProperties({
+            location_name: f.name
+        });
         feature.getGeometry().transform('EPSG:4326', 'EPSG:3857');
-       // iconFeature.set('style', this.createStyle('data/icon.png', undefined));
+        feature.set('style', this.createStyle(`assets/${type}.png`, undefined));
         features.push(feature);
       });
 
@@ -125,7 +154,7 @@ export class MapComponent implements OnInit, OnChanges {
 
   createStyle(src, img) {
     return new Style({
-      image: new Icon(/** @type {module:ol/style/Icon~Options} */ ({
+      image: new Icon(({
         anchor: [0.5, 0.96],
         crossOrigin: 'anonymous',
         src: src,

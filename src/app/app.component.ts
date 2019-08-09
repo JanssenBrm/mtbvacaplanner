@@ -31,4 +31,5 @@ export class AppComponent implements OnInit {
     this.activeRoute = Object.assign({}, this.routes.find(r => r.id === id));
 
   }
+
 }

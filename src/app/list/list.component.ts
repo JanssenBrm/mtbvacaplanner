@@ -15,6 +15,7 @@ export class ListComponent implements OnInit, OnChanges {
   @Output()
   activateRoute: EventEmitter<number> = new EventEmitter();
 
+
   constructor(private routeService: RoutesService) { }
 
   ngOnInit() {

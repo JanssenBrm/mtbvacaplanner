@@ -22,7 +22,7 @@ export class BottomPanelComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.tab = 'overview';
+    this.tab = 'profile';
   }
 
   setTab(name: string){

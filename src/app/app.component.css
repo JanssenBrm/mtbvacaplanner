@@ -5,8 +5,8 @@
   height: 100vh;
 }
 
-.list {
-  flex: 1;
+.sidebar {
+  width: 20vw;
 }
 
 .content {

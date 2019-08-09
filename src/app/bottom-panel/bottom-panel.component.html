@@ -1,0 +1,14 @@
+<div class="panel">
+  <div class="tabs">
+    <div class="tab" (click)="setTab('overview')">Overview</div>
+    <div class="tab" (click)="setTab('profile')">Profile</div>
+    <div class="tab" (click)="setTab('weather')">Weather</div>
+  </div>
+
+  <div class="content">
+    <app-chart *ngIf="tab === 'profile'" [routes]="routes" [activeRouteId]="activeRouteId"></app-chart>
+    <app-weather  *ngIf="tab === 'weather'" [routes]="routes" [activeRouteId]="activeRouteId"></app-weather>
+  </div>
+</div>
+
+

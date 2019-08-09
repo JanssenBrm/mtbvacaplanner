@@ -22,7 +22,6 @@ export class AppComponent implements OnInit {
   getRoutes(){
     this.routeService.getRoutes().subscribe(routes => {
       this.routes = routes;
-      console.log(routes);
     });
 
   }

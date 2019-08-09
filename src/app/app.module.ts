@@ -9,13 +9,17 @@ import { ListComponent } from './list/list.component';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import { ChartComponent } from './chart/chart.component';
 import {HighchartsChartModule} from "highcharts-angular";
+import { BottomPanelComponent } from './bottom-panel/bottom-panel.component';
+import { WeatherComponent } from './weather/weather.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
     ListComponent,
-    ChartComponent
+    ChartComponent,
+    BottomPanelComponent,
+    WeatherComponent
   ],
   imports: [
     BrowserModule,

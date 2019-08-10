@@ -25,7 +25,6 @@ export class ChartComponent implements OnInit, OnChanges {
   Highcharts: typeof Highcharts = Highcharts;
   chartOptions: Highcharts.Options = {};
 
-  chart: Highcharts.Chart;
 
   constructor() {
   }
@@ -55,8 +54,12 @@ export class ChartComponent implements OnInit, OnChanges {
           data: r.ride.heightProfile,
           type: 'line',
           showInLegend: false,
+          color: 'rgb(0,0,0)'
         });
     });
+
+    this.chartOptions.chart = { backgroundColor: 'rgba(0,0,0,0)'};
+    this.chartOptions.title = { text: ''};
 
     this.chartOptions.tooltip = {
       formatter: function () {
@@ -69,10 +72,6 @@ export class ChartComponent implements OnInit, OnChanges {
     }
   }
 
-  chartCreated(chart) {
-    console.log("CHART CREATED", chart);
-    this.chart = chart;
-  }
 
   setActiveRoute() {
     this.chartOptions.series.forEach(s => {

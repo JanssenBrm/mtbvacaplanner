@@ -16,11 +16,11 @@ export class LocationService {
         "Access-Control-Allow-Methods": 'GET',
       },}).pipe(
       map((data: any) => {
-        console.log(data);
         const results = data.results.map( r => {
           return {
               location: [r.geometry.location.lng, r.geometry.location.lat],
-              name: r.name
+              name: r.name,
+              type: type
           }
         });
         return results;

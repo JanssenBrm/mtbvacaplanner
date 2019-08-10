@@ -1,12 +1,19 @@
-<div class="panel">
-  <div class="tabs">
-    <div class="tab" (click)="setTab('profile')">Profile</div>
-    <div class="tab" (click)="setTab('weather')">Weather</div>
+<div class="panel" [@changeDivSize]="state">
+  <div class="header">
+    <div class="tabs">
+      <div class="tab" (click)="setTab('overview')" [class.active]="tab === 'overview'">Overview</div>
+      <div class="tab" (click)="setTab('profile')" [class.active]="tab === 'profile'">Profile</div>
+      <div class="tab" (click)="setTab('weather')" [class.active]="tab === 'weather'">Weather</div>
+    </div>
+    <div class="actions">
+      <i class="fa" [class.fa-chevron-up]="state === 'contentDown'" [class.fa-chevron-down]="state === 'contentUp'" (click)="toggleContent()"></i>
+    </div>
   </div>
 
-  <div class="content">
+  <div class="content" #content *ngIf="state === 'contentUp'">
+    <app-overview *ngIf="tab === 'overview'" [activeRoute]="activeRoute" [pois]="activeRoute.pois"></app-overview>
     <app-chart *ngIf="tab === 'profile'" [routes]="routes" [activeRouteId]="activeRouteId"></app-chart>
-    <app-weather  *ngIf="tab === 'weather'" [routes]="routes" [activeRouteId]="activeRouteId"></app-weather>
+    <app-weather  *ngIf="tab === 'weather'" [routes]="routes" [activeRouteId]="activeRouteId" [height]="contentView.nativeElement.offsetHeight"></app-weather>
   </div>
 </div>
 

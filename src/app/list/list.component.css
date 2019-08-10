@@ -1,0 +1,68 @@
+:host{
+  height: 100%;
+  display:flex;
+  flex-direction: column;
+  background-color: #fdfdfd;
+  font-size: smaller;
+  width:100%;
+}
+
+.list{
+  height: 100%;
+}
+
+.route{
+  background-color: white;
+  margin: .5rem;
+  padding: 1rem;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.route.active .route_title{
+  color: #537cfb;
+}
+.route:hover{
+  cursor: pointer;
+}
+
+.route_title{
+  font-weight: bold;
+}
+
+.info{
+  display: flex;
+  margin-top:.5rem;
+  font-size: smaller;
+  color: #616161;
+}
+
+.info div{
+  display:flex;
+  margin-right: .5rem;
+}
+
+.info div i {
+  margin-right: .5rem;
+}
+
+.filter {
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+  padding: 1rem 1rem;
+  font-size: medium;
+  background-color: #f3f3f3;
+  box-shadow: 0 3px 30px rgba(0,0,0,0.05), 0 3px 30px rgba(0,0,0,0.1);
+}
+
+.filter input{
+  width: 100%;
+  margin-right: .5rem;
+  padding: .5rem;
+  border-radius: 10px;
+  border: none;
+  font-family: 'Red Hat Text', sans-serif;
+}
+.filter i {
+  color: #616161;
+}

@@ -1,9 +1,20 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-bottom-panel',
   templateUrl: './bottom-panel.component.html',
-  styleUrls: ['./bottom-panel.component.css']
+  styleUrls: ['./bottom-panel.component.css'],
+  animations: [
+    trigger('changeDivSize', [
+      state('contentUp', style({
+        height: '40vh'
+      })),
+      state('contentDown', style({
+        height: 'auto'
+      }))
+    ]),
+  ]
 })
 export class BottomPanelComponent implements OnInit, OnChanges {
 
@@ -15,6 +26,11 @@ export class BottomPanelComponent implements OnInit, OnChanges {
   activeRouteId: number;
 
   tab: string;
+  state = 'contentUp';
+
+  activeRoute: any;
+
+  @ViewChild('content') contentView: ElementRef;
 
   constructor() { }
 
@@ -22,11 +38,18 @@ export class BottomPanelComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.tab = 'profile';
+    this.tab = 'overview';
+    this.activeRoute = this.routes.find(r => r.id === this.activeRouteId);
   }
 
   setTab(name: string){
     this.tab = name;
+    console.log(this.contentView.nativeElement);
+  }
+
+  toggleContent(){
+    this.state = this.state === 'contentUp' ? 'contentDown' : 'contentUp';
+    console.log(this.state);
   }
 
 }

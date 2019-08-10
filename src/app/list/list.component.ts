@@ -15,6 +15,9 @@ export class ListComponent implements OnInit, OnChanges {
   @Output()
   activateRoute: EventEmitter<number> = new EventEmitter();
 
+  filter: string;
+
+  activeId = -1;
 
   constructor(private routeService: RoutesService) { }
 
@@ -26,7 +29,15 @@ export class ListComponent implements OnInit, OnChanges {
 
   setActiveRoute(id: number){
     this.activateRoute.emit(id);
+    this.activeId = id;
   }
 
+  setFilter(value: string){
+    this.filter = value;
+  }
+
+  getFilteredRoutes(routes: any[]){
+    return this.filter ? routes.filter(r => r.name.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0) : routes;
+  }
 
 }

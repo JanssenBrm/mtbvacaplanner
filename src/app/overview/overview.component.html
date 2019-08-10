@@ -1,0 +1,74 @@
+<div class="overview" *ngIf="activeRoute">
+  <div class="row">
+    <div class="col">
+      <div class="row">
+        <div class="label">
+          Name
+        </div>
+        <div class="value">
+          {{activeRoute.name}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="label">
+          Distance
+        </div>
+        <div class="value">
+          {{activeRoute.ride.distance}}km
+        </div>
+      </div>
+      <div class="row">
+        <div class="label">
+          Duration
+        </div>
+        <div class="value">
+          {{activeRoute.ride.duration}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="label">
+          Average speed
+        </div>
+        <div class="value">
+          {{getAverageSpeed()}}km/h
+        </div>
+      </div>
+      <div class="row">
+        <div class="label">
+          Total ascent
+        </div>
+        <div class="value">
+          {{activeRoute.ride.ascent}}m
+        </div>
+      </div>
+      <div class="row">
+        <div class="label">
+          Total descent
+        </div>
+        <div class="value">
+          {{activeRoute.ride.descent}}m
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="row">
+        <div class="label span">
+          Points of interest
+        </div>
+      </div>
+      <div class="row" *ngFor="let poi of poiCats">
+        <div class="span">
+          <img src="assets/{{poi.type}}.png"/> {{poi.places.length}}x {{poi.type}}
+        </div>
+      </div>
+      <div class="row clickable" (click)="downloadRoute()">
+        <div class="label">
+          Download GPX
+        </div>
+        <div class="value">
+          <img src="assets/download.png" width="50"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

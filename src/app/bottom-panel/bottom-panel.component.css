@@ -1,8 +1,40 @@
-:host{
-  position: absolute;
-  bottom: 0;
-  right: 1vw;
-  width: 76.5vw;
-  height: 35vh;
-  background-color: white;
+
+
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  background-color: #f3f3f3;
+  /* background-color: rgba(0,0,0,0.05);*/
+  width: 100%;
+  box-shadow: 0 3px 30px rgba(0,0,0,0.05), 0 3px 30px rgba(0,0,0,0.1);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.tabs {
+  display: flex;
+}
+
+.tab{
+  padding: 1rem;
+}
+
+.tab:hover{
+  cursor: pointer;
+}
+
+.active {
+  color: #537cfb;
+  border-bottom: 3px solid #537cfb;
+}
+
+.content{
+  margin-top: 2rem;
+}
+
+.actions i{
+  padding: 1rem 1.5rem;
 }

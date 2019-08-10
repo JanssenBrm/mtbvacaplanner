@@ -1,0 +1,36 @@
+.overview{
+  padding: 0 1rem;
+}
+.row {
+  display: flex;
+  flex-direction:row;
+  margin: .5rem;
+  align-items: center;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  margin-right: 2rem;
+}
+
+.label {
+  margin-right: .5rem;
+  font-weight: bold;
+  width: 8rem;
+}
+
+.span{
+  width: auto;
+  display: flex;
+  align-items: center;
+}
+
+img {
+  margin-right: .5rem;
+}
+
+
+.clickable:hover{
+  cursor: pointer;
+}

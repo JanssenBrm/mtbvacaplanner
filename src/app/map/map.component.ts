@@ -43,7 +43,9 @@ export class MapComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.activeRoute = this.routes.find(r => r.id === this.activeRouteId);
+    if(this.routes) {
+      this.activeRoute = this.routes.find(r => r.id === this.activeRouteId);
+    }
     if (changes.routes && this.routes){
       this.addLayers();
     }
@@ -83,7 +85,6 @@ export class MapComponent implements OnInit, OnChanges {
       })
     });
     this.map.addOverlay(this.overlay);
-
     this.map.on('pointermove', (evt) => this.displayTooltip(evt, this.tooltip, this.overlay));
 
 
@@ -114,7 +115,6 @@ export class MapComponent implements OnInit, OnChanges {
   updateLayerVisibility(id: number) {
     if (this.layers) {
       this.layers.forEach(l => {
-        console.log(l.id);
         l.layer.setVisible(l.id === id);
 
         if(l.layer.visible) {
@@ -127,28 +127,28 @@ export class MapComponent implements OnInit, OnChanges {
   }
 
   showPOIs(){
-    this.poiLayer.clear();
-    ['parking', 'restaurant', 'cafe'].forEach(type => {
-      this.getPointsOfInterest(type);
-    })
+    if (this.poiLayer) {
+      this.poiLayer.clear();
+      this.activeRoute.pois = [];
+      ['parking', 'restaurant', 'cafe'].forEach(type => {
+        this.getPointsOfInterest(type);
+      });
+
+      if (this.activeRoute){
+        const feature = this.createFeature('Start', this.activeRoute.ride.start, 'start');
+        this.poiLayer.addFeature(feature);
+      }
+    }
   }
   getPointsOfInterest(type: string){
     this.locationService.getPointsOfInterest(this.activeRoute.ride.start[0],this.activeRoute.ride.start[1], type, 1000).subscribe((data: any[]) => {
       const features = [];
       data.forEach(f => {
-        const feature = new Feature(new Point(f.location));
-        feature.setProperties({
-            location_name: f.name
-        });
-        feature.getGeometry().transform('EPSG:4326', 'EPSG:3857');
-        feature.set('style', this.createStyle(`assets/${type}.png`, undefined));
+        const feature = this.createFeature(f.name, f.location, type);
         features.push(feature);
       });
-
+      this.activeRoute.pois = [...this.activeRoute.pois, ...data];
       this.poiLayer.addFeatures(features);
-      console.log(this.poiLayer.getFeatures());
-      console.log(this.map.getLayers())
-
     });
   }
 
@@ -164,4 +164,14 @@ export class MapComponent implements OnInit, OnChanges {
     });
   }
 
+  createFeature(name, location, type){
+    const feature = new Feature(new Point(location));
+    feature.setProperties({
+      location_name: name
+    });
+    feature.getGeometry().transform('EPSG:4326', 'EPSG:3857');
+    feature.set('style', this.createStyle(`assets/${type}.png`, undefined));
+
+    return feature
+  }
 }

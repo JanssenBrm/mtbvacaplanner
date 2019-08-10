@@ -12,6 +12,8 @@ import {HighchartsChartModule} from "highcharts-angular";
 import { BottomPanelComponent } from './bottom-panel/bottom-panel.component';
 import { WeatherComponent } from './weather/weather.component';
 import {LocationService} from "./services/location.service";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { OverviewComponent } from './overview/overview.component';
 
 @NgModule({
   declarations: [
@@ -20,12 +22,14 @@ import {LocationService} from "./services/location.service";
     ListComponent,
     ChartComponent,
     BottomPanelComponent,
-    WeatherComponent
+    WeatherComponent,
+    OverviewComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    HighchartsChartModule
+    HighchartsChartModule,
+    BrowserAnimationsModule
   ],
   providers: [
     RoutesService,

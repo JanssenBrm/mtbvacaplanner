@@ -14,6 +14,7 @@ import * as _ from 'lodash';
 import {forkJoin} from "rxjs/observable/forkJoin";
 import * as moment from 'moment';
 import * as turf from '@turf/turf';
+import {ResponseContentType} from "@angular/http";
 
 @Injectable()
 export class RoutesService {
@@ -90,7 +91,6 @@ export class RoutesService {
     return this.http.get(route.path, {responseType: 'text'}).pipe(
       map(data => {
         const obj = parser.parseFromString(data, 'text/xml');
-        console.log(obj);
         const name = obj.getElementsByTagName("metadata")[0].getElementsByTagName("name")[0].textContent
           .replace('GPX Download:', '');
 
@@ -108,7 +108,6 @@ export class RoutesService {
   }
 
   getRideInfo(points: any[]){
-    console.log(points);
     let ascent = 0, descent = 0;
     let heightProfile = [];
     let durationSec = 0;
@@ -156,6 +155,30 @@ export class RoutesService {
   getCenter(points){
     const geom = turf.polygon([points]);
     return turf.centroid(geom).geometry.coordinates;
+  }
+
+  downloadRoute(name: string, path: string){
+    return this.http
+      .get(path, { responseType: 'text'})
+      .pipe(
+        map(res => {
+          return {
+            filename: `${name}.gpx`,
+            data: new Blob([res])
+          };
+        })
+      ).subscribe(res => {
+        console.log('start download:',res);
+        const url = window.URL.createObjectURL(res.data);
+        const a = document.createElement('a');
+        document.body.appendChild(a);
+        a.setAttribute('style', 'display: none');
+        a.href = url;
+        a.download = res.filename;
+        a.click();
+        window.URL.revokeObjectURL(url);
+        a.remove(); // remove the element
+      });
   }
 
 

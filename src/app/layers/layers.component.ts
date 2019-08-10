@@ -13,7 +13,6 @@ export class LayersComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.layers);
   }
 
   getBackgroundLayers(layers: any){

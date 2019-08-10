@@ -32,7 +32,12 @@ export class MapComponent implements OnInit, OnChanges {
   activeRoute: any;
   map: Map;
   layers: any[];
-  poiLayer: any;
+
+  poiLayers = [];
+  poiTypes = ['parking', 'restaurant', 'cafe'];
+
+  routeLayer: any;
+
 
   tooltip: any;
   overlay: any;
@@ -67,17 +72,31 @@ export class MapComponent implements OnInit, OnChanges {
       positioning: 'top-center'
     });
 
-    this.poiLayer = new VectorSource({features: []});
-    const poiLayer = new VectorLayer({
+
+    this.routeLayer = new VectorLayer({
       style: function(feature) {
         return feature.get('style');
       },
-      source: this.poiLayer
+      source: new VectorSource({features: []})
     });
-    poiLayer.set('name', 'info_poi');
-    poiLayer.set('title', 'Points of interest');
+    this.routeLayer.set('name', `info_route`);
+    this.routeLayer.set('title', 'Route waypoints');
+
+    this.poiTypes.forEach(type => {
+      const poiSource = new VectorSource({features: []});
+      const poiLayer = new VectorLayer({
+        style: function(feature) {
+          return feature.get('style');
+        },
+        source: poiSource
+      });
+      poiLayer.set('name', `info_poi_${type}`);
+      poiLayer.set('title', type);
+      this.poiLayers.push(poiLayer);
+    });
+
     this.map = new Map({
-      layers: [...backgroundLayers, poiLayer],
+      layers: [...backgroundLayers, this.routeLayer, ...this.poiLayers],
       target: document.getElementById('map'),
       view: new View({
         center: [1208099.0260418092,5979680.96461715],
@@ -117,9 +136,9 @@ export class MapComponent implements OnInit, OnChanges {
       this.layers.forEach(l => {
         l.layer.setVisible(l.id === id);
 
-        if(l.layer.visible) {
-          this.map.getView().setCenter(transformProj(l.ride.center, 'EPSG:4326', 'EPSG:3857'));
+        if(l.layer.getVisible()) {
           this.map.getView().setZoom(13);
+          this.map.getView().setCenter(transformProj(l.ride.center, 'EPSG:4326', 'EPSG:3857'));
         }
         return l;
       });
@@ -127,19 +146,24 @@ export class MapComponent implements OnInit, OnChanges {
   }
 
   showPOIs(){
-    if (this.poiLayer) {
-      this.poiLayer.clear();
+    if (this.poiLayers.length > 0) {
+
+      this.poiLayers.forEach(l => l.getSource().clear());
+
       if (this.activeRoute.pois.length === 0) {
-        ['parking', 'restaurant', 'cafe'].forEach(type => {
+        this.poiTypes.forEach(type => {
           this.getPointsOfInterest(type);
         });
       } else {
-        this.poiLayer.addFeatures(this.activeRoute.pois.map(p => this.createFeature(p.name, p.location, p.type)));
+        this.poiTypes.forEach(type => {
+          this.getPOISource(type).addFeatures(this.activeRoute.pois.filter(p => p.type === type).map(p => this.createFeature(p.name, p.location, p.type)));
+        });
       }
 
       if (this.activeRoute){
         const feature = this.createFeature('Start', this.activeRoute.ride.start, 'start');
-        this.poiLayer.addFeature(feature);
+        this.routeLayer.getSource().clear();
+        this.routeLayer.getSource().addFeature(feature);
       }
     }
   }
@@ -151,8 +175,12 @@ export class MapComponent implements OnInit, OnChanges {
         features.push(feature);
       });
       this.activeRoute.pois = [...this.activeRoute.pois, ...data];
-      this.poiLayer.addFeatures(features);
+      this.getPOISource(type).addFeatures(features);
     });
+  }
+
+  getPOISource(type){
+    return this.poiLayers.find(l => l.get('name').indexOf(type) >= 0).getSource();
   }
 
   createStyle(src, img) {

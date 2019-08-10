@@ -15,6 +15,10 @@
   box-shadow: 0 3px 6px rgba(0,0,0,0.05), 0 3px 6px rgba(0,0,0,0.1);
 }
 
+select {
+  width: 100%;
+}
+
 
 h4{
   margin-bottom: .5rem;
@@ -23,4 +27,18 @@ h4{
 
 .block{
   margin-bottom: 1.5rem;
+}
+
+.legendentry{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: .5rem;
+}
+
+.legendentry input{
+  margin-right: .5rem;
+}
+.legendentry img{
+  margin-left: 1rem;
 }

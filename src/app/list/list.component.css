@@ -9,6 +9,7 @@
 
 .list{
   height: 100%;
+  overflow: auto;
 }
 
 .route{
@@ -26,7 +27,6 @@
 }
 
 .route_title{
-  font-weight: bold;
 }
 
 .info{
@@ -34,6 +34,7 @@
   margin-top:.5rem;
   font-size: smaller;
   color: #616161;
+  flex-wrap: wrap;
 }
 
 .info div{

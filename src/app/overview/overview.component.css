@@ -1,3 +1,7 @@
+:host{
+  font-size: smaller;
+}
+
 .overview{
   padding: 0 1rem;
 }

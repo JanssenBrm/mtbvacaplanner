@@ -44,12 +44,11 @@ export class BottomPanelComponent implements OnInit, OnChanges {
 
   setTab(name: string){
     this.tab = name;
-    console.log(this.contentView.nativeElement);
+    this.state = 'contentUp';
   }
 
   toggleContent(){
     this.state = this.state === 'contentUp' ? 'contentDown' : 'contentUp';
-    console.log(this.state);
   }
 
 }

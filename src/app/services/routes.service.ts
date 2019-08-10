@@ -84,6 +84,7 @@ export class RoutesService {
       path: route.path,
       layer: layer,
       active: false,
+      pois: []
     };
 
 

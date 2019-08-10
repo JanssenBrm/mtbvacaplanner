@@ -14,6 +14,7 @@ import { WeatherComponent } from './weather/weather.component';
 import {LocationService} from "./services/location.service";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { OverviewComponent } from './overview/overview.component';
+import { LayersComponent } from './layers/layers.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { OverviewComponent } from './overview/overview.component';
     ChartComponent,
     BottomPanelComponent,
     WeatherComponent,
-    OverviewComponent
+    OverviewComponent,
+    LayersComponent
   ],
   imports: [
     BrowserModule,

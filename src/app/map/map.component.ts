@@ -13,6 +13,7 @@ import Feature from 'ol/Feature.js';
 import {Icon, Style} from 'ol/style.js';
 import Point from 'ol/geom/Point.js';
 import Overlay from 'ol/Overlay';
+import {BACKGROUNDS} from "../config/backgrounds.config";
 
 @Component({
   selector: 'app-map',
@@ -56,11 +57,8 @@ export class MapComponent implements OnInit, OnChanges {
   }
 
   buildMap(){
-    const background =  new TileLayer({
-      source: new XYZ({
-        url: 'https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYnJhbWphbnNzZW4iLCJhIjoiY2prZTBvdmxnMWtuczNrbnZ5dnJobzN6NSJ9.T3w_c9JDKgmQKBNEZR2YPQ'
-      })
-    });
+
+    const backgroundLayers = this.createBackgroundLayers();
 
     this.tooltip = document.getElementById('tooltip');
     this.overlay = new Overlay({
@@ -76,8 +74,10 @@ export class MapComponent implements OnInit, OnChanges {
       },
       source: this.poiLayer
     });
+    poiLayer.set('name', 'info_poi');
+    poiLayer.set('title', 'Points of interest');
     this.map = new Map({
-      layers: [background, poiLayer],
+      layers: [...backgroundLayers, poiLayer],
       target: document.getElementById('map'),
       view: new View({
         center: [1208099.0260418092,5979680.96461715],
@@ -129,10 +129,13 @@ export class MapComponent implements OnInit, OnChanges {
   showPOIs(){
     if (this.poiLayer) {
       this.poiLayer.clear();
-      this.activeRoute.pois = [];
-      ['parking', 'restaurant', 'cafe'].forEach(type => {
-        this.getPointsOfInterest(type);
-      });
+      if (this.activeRoute.pois.length === 0) {
+        ['parking', 'restaurant', 'cafe'].forEach(type => {
+          this.getPointsOfInterest(type);
+        });
+      } else {
+        this.poiLayer.addFeatures(this.activeRoute.pois.map(p => this.createFeature(p.name, p.location, p.type)));
+      }
 
       if (this.activeRoute){
         const feature = this.createFeature('Start', this.activeRoute.ride.start, 'start');
@@ -141,7 +144,7 @@ export class MapComponent implements OnInit, OnChanges {
     }
   }
   getPointsOfInterest(type: string){
-    this.locationService.getPointsOfInterest(this.activeRoute.ride.start[0],this.activeRoute.ride.start[1], type, 1000).subscribe((data: any[]) => {
+    this.locationService.getPointsOfInterest(this.activeRoute.ride.start[0],this.activeRoute.ride.start[1], type, 2000).subscribe((data: any[]) => {
       const features = [];
       data.forEach(f => {
         const feature = this.createFeature(f.name, f.location, type);
@@ -173,5 +176,21 @@ export class MapComponent implements OnInit, OnChanges {
     feature.set('style', this.createStyle(`assets/${type}.png`, undefined));
 
     return feature
+  }
+
+  createBackgroundLayers(){
+
+    const layers = [];
+
+    BACKGROUNDS.forEach((config: any) => {
+      config.layer.set('name', config.name);
+      config.layer.set('title', config.title);
+      config.layer.setVisible(false);
+      layers.push(config.layer);
+    });
+
+    layers[0].setVisible(true);
+
+    return layers;
   }
 }

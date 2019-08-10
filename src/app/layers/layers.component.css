@@ -1,0 +1,26 @@
+:host{
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: white;
+  z-index: 9999;
+  border-radius:10px;
+  font-size: smaller;
+}
+
+.selection {
+  padding: 1rem;
+  background-color: #fdfdfd;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.05), 0 3px 6px rgba(0,0,0,0.1);
+}
+
+
+h4{
+  margin-bottom: .5rem;
+  margin-top: 0;
+}
+
+.block{
+  margin-bottom: 1.5rem;
+}

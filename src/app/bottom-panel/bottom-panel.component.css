@@ -36,7 +36,6 @@
 }
 
 .content{
-  margin-top: 2rem;
   overflow: auto;
   display:flex;
   flex:6;

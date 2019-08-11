@@ -59,7 +59,7 @@ h4{
   }
 
   :host{
-    top: calc(2rem + 5vw);
+    top: calc(2rem + 8vw);
   }
 }
 

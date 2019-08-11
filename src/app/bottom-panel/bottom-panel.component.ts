@@ -8,7 +8,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
   animations: [
     trigger('changeDivSize', [
       state('contentUp', style({
-        height: '40vh'
+        height: '20rem'
       })),
       state('contentDown', style({
         height: 'auto'

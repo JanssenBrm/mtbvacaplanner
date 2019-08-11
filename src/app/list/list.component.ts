@@ -39,7 +39,7 @@ export class ListComponent implements OnInit, OnChanges {
     this.activateRoute.emit(id);
     this.activeId = id;
 
-    if(window.innerWidth <= 800) {
+    if(window.innerWidth <= 850) {
       this.closeSidebar.emit(true);
     }
   }

@@ -36,7 +36,7 @@
 .content{
   margin-top: 2rem;
   overflow: auto;
-  height: 20rem;
+  height: 100%;
 }
 
 .actions i{

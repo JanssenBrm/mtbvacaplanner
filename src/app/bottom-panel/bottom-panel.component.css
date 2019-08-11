@@ -14,10 +14,12 @@
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   font-size:smaller;
+  flex:1;
 }
 
 .tabs {
   display: flex;
+  height:100%;
 }
 
 .tab{
@@ -36,7 +38,8 @@
 .content{
   margin-top: 2rem;
   overflow: auto;
-  height: 100%;
+  display:flex;
+  flex:4;
 }
 
 .actions i{

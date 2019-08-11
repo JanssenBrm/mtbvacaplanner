@@ -15,6 +15,9 @@ export class ListComponent implements OnInit, OnChanges {
   @Input()
   routes: any[];
 
+  @Input()
+  userPosition: number[];
+
   @Output()
   activateRoute: EventEmitter<number> = new EventEmitter();
 

@@ -16,6 +16,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { OverviewComponent } from './overview/overview.component';
 import { LayersComponent } from './layers/layers.component';
 import { MobileHeaderComponent } from './mobile-header/mobile-header.component';
+import { OrderByDistancePipe } from './pipes/order-by-distance.pipe';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { MobileHeaderComponent } from './mobile-header/mobile-header.component';
     WeatherComponent,
     OverviewComponent,
     LayersComponent,
-    MobileHeaderComponent
+    MobileHeaderComponent,
+    OrderByDistancePipe
   ],
   imports: [
     BrowserModule,

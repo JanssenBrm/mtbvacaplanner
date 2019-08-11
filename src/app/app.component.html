@@ -3,10 +3,10 @@
 </div>
 <div class="main">
   <div class="sidebar" [class.hidden]="!sidebar">
-    <app-list [routes]="routes" (activateRoute)="activateRoute($event)" (closeSidebar)="toggleSidebar(false)"></app-list>
+    <app-list [routes]="routes" (activateRoute)="activateRoute($event)" (closeSidebar)="toggleSidebar(false)" [userPosition]="userPosition"></app-list>
   </div>
   <div class="content">
-    <app-map [routes]="routes" [activeRouteId]="activeRouteId"></app-map>
+    <app-map [routes]="routes" [activeRouteId]="activeRouteId" (setUserPosition)="setUserPosition($event)"></app-map>
   </div>
 </div>
 <div *ngIf="activeRoute" class="bottompanel">

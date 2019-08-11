@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import Map from 'ol/Map.js';
 import View from 'ol/View.js';
 import GPX from 'ol/format/GPX.js';
@@ -29,6 +29,9 @@ export class MapComponent implements OnInit, OnChanges {
 
   @Input()
   activeRouteId: number;
+
+  @Output()
+  setUserPosition: EventEmitter<number[]> = new EventEmitter();
 
   activeRoute: any;
   map: Map;
@@ -122,6 +125,7 @@ export class MapComponent implements OnInit, OnChanges {
         this.positionLayer.getSource().clear();
         const feature = this.createFeature('User location', [position.coords.longitude, position.coords.latitude], 'position');
         this.positionLayer.getSource().addFeature(feature);
+        this.setUserPosition.emit([position.coords.longitude, position.coords.latitude]);
       });
     }
 

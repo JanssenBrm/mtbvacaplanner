@@ -1,0 +1,24 @@
+import { Pipe, PipeTransform } from '@angular/core';
+import {RoutesService} from "../services/routes.service";
+
+@Pipe({
+  name: 'orderByDistance'
+})
+export class OrderByDistancePipe implements PipeTransform {
+
+  constructor(private routeService: RoutesService) {}
+
+  transform(routes: any[], position: number[]): any {
+    let result = routes;
+    if (routes) {
+      result = routes.map(r => {
+        r.travelDistance = this.routeService.getDistance([position, r.ride.start])
+        return r;
+      });
+      result = result.sort((a, b) => a.travelDistance > b.travelDistance ? 1 : -1);
+    }
+    console.log(result);
+    return result;
+  }
+
+}

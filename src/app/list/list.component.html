@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class="list">
-    <div *ngFor="let route of getFilteredRoutes(routes)" (click)="setActiveRoute(route.id)" class="route"
+    <div *ngFor="let route of getFilteredRoutes(routes) | orderByDistance:userPosition" (click)="setActiveRoute(route.id)" class="route"
          [class.active]="route.id === activeId">
       <div class="route_title">
         {{route.name}}

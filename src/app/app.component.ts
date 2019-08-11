@@ -16,6 +16,8 @@ export class AppComponent implements OnInit {
 
   sidebar = true;
 
+  userPosition = [];
+
   constructor(private routeService: RoutesService) { }
 
   ngOnInit() {
@@ -41,6 +43,10 @@ export class AppComponent implements OnInit {
     } else {
       this.sidebar = state;
     }
+  }
+
+  setUserPosition(position: number[]){
+    this.userPosition = position;
   }
 
 }

@@ -5,11 +5,22 @@
       <option *ngFor="let layer of getBackgroundLayers(layers)" [value]="layer.get('name')" [selected]="layer.getVisible()">{{layer.get('title')}}</option>
     </select>
   </div>
+  <div class="block" *ngIf="activeRoute">
+    <h4>Routes</h4>
+    <div *ngFor="let layer of getRouteLayers(layers)" class="legendentry">
+      <div>
+        <input type="checkbox" [checked]="layer.getVisible()" (change)="toggleLayer(layer)"/>
+        <span>{{layer.get('title') | titlecase}}</span>
+      </div>
+      <!--<img src="/assets/{{layer.get('name')}}.png" width="20"/>-->
+    </div>
+  </div>
   <div class="block">
     <h4>Additional layers</h4>
     <div *ngFor="let layer of getInfoLayers(layers)" class="legendentry">
       <div>
-        <input type="checkbox" [checked]="layer.getVisible()" (change)="toggleLayer(layer)"/>{{layer.get('title') | titlecase}}
+        <input type="checkbox" [checked]="layer.getVisible()" (change)="toggleLayer(layer)"/>
+        <span>{{layer.get('title') | titlecase}}</span>
       </div>
       <!--<img src="/assets/{{layer.get('name')}}.png" width="20"/>-->
     </div>

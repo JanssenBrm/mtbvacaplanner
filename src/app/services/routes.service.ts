@@ -76,12 +76,14 @@ export class RoutesService {
       style: (feature) => this.styles[feature.getGeometry().getType()],
       visible: false
     });
+    layer.set('name', `route_${id}`);
 
 
     const routeObject =
     {
       id: id,
       path: route.path,
+      url: route.info,
       layer: layer,
       active: false,
       pois: []
@@ -102,6 +104,7 @@ export class RoutesService {
             time: moment(p.getElementsByTagName("time")[0].textContent)
           }
         }));
+        layer.set('title', name);
         return Object.assign({}, routeObject, {name, ride});
       })
     );

@@ -28,13 +28,14 @@
 }
 
 .route.active .route_title{
-  color: #537cfb;
+  font-weight:bold;
 }
 .route:hover{
   cursor: pointer;
 }
 
 .route_title{
+  color: #404040;
 }
 
 .info{

@@ -94,14 +94,14 @@ export class RoutesService {
     return this.http.get(route.path, {responseType: 'text'}).pipe(
       map(data => {
         const obj = parser.parseFromString(data, 'text/xml');
-        const name = obj.getElementsByTagName("metadata")[0].getElementsByTagName("name")[0].textContent
+        const name = obj.getElementsByTagName("name")[0].textContent
           .replace('GPX Download:', '');
         const ride = this.getRideInfo([].slice.call(obj.getElementsByTagName("trkseg")[0].getElementsByTagName("trkpt")).map(p => {
           return {
             lat: +p.getAttribute('lat'),
             lon: +p.getAttribute('lon'),
             elevation: +p.getElementsByTagName("ele")[0].textContent,
-            time: moment(p.getElementsByTagName("time")[0].textContent)
+            time: p.getElementsByTagName("time").length > 0 ? moment(p.getElementsByTagName("time")[0].textContent) : 0
           }
         }));
         layer.set('title', name);
@@ -141,7 +141,7 @@ export class RoutesService {
           descent += -diff;
         }
 
-        durationSec += p.time.diff(points[idx - 1].time);
+        durationSec += p.time !== 0 ? p.time.diff(points[idx - 1].time) : p.time;
       }
     });
 
@@ -168,7 +168,7 @@ export class RoutesService {
     return Math.round(turf.length(turf.lineString(points)) * 10) / 10;
   }
   getCenter(points){
-    const geom = turf.polygon([points]);
+    const geom = turf.polygon([[...points, points[0]]]);
     return turf.centroid(geom).geometry.coordinates;
   }
 

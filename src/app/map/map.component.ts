@@ -39,6 +39,8 @@ export class MapComponent implements OnInit, OnChanges {
 
   routeLayer: any;
 
+  positionLayer: any;
+
 
   tooltip: any;
   overlay: any;
@@ -73,6 +75,13 @@ export class MapComponent implements OnInit, OnChanges {
       positioning: 'top-center'
     });
 
+    this.positionLayer = new VectorLayer({
+      style: function(feature) {
+        return feature.get('style');
+      },
+      source: new VectorSource({features: []}),
+      zIndex: 9999
+    });
 
     this.routeLayer = new VectorLayer({
       style: function(feature) {
@@ -98,7 +107,7 @@ export class MapComponent implements OnInit, OnChanges {
     });
 
     this.map = new Map({
-      layers: [...backgroundLayers, this.routeLayer, ...this.poiLayers],
+      layers: [...backgroundLayers, this.positionLayer, this.routeLayer, ...this.poiLayers],
       target: document.getElementById('map'),
       view: new View({
         center: [1208099.0260418092,5979680.96461715],
@@ -107,6 +116,14 @@ export class MapComponent implements OnInit, OnChanges {
     });
     this.map.addOverlay(this.overlay);
     this.map.on('pointermove', (evt) => this.displayTooltip(evt, this.tooltip, this.overlay));
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.positionLayer.getSource().clear();
+        const feature = this.createFeature('User location', [position.coords.longitude, position.coords.latitude], 'position');
+        this.positionLayer.getSource().addFeature(feature);
+      });
+    }
 
 
   }
@@ -214,6 +231,18 @@ export class MapComponent implements OnInit, OnChanges {
     });
   }
 
+  createPositionStyle() {
+
+    const textColor = '#00A2FF';
+    return new Style({
+      image: new CircleStyle({
+        radius: 5,
+        fill: new Fill({color: textColor}),
+        stroke: new Stroke({color: 'rgb(255,255,255)', width: 2})
+      }),
+    });
+  }
+
   createFeature(name, location, type){
     const feature = new Feature(new Point(location));
     feature.setProperties({
@@ -221,7 +250,9 @@ export class MapComponent implements OnInit, OnChanges {
     });
     feature.getGeometry().transform('EPSG:4326', 'EPSG:3857');
 
-    if(type !== 'point') {
+    if (type === 'position'){
+      feature.set('style', this.createPositionStyle());
+    } else if(type !== 'point') {
       feature.set('style', this.createStyle(`assets/${type}.png`, undefined));
     } else {
       feature.set('style', this.createPointStyle(name));

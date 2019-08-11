@@ -22,7 +22,6 @@ export class ListComponent implements OnInit, OnChanges {
   closeSidebar: EventEmitter<boolean> = new EventEmitter();
 
   filter: string;
-
   activeId = -1;
 
   constructor(private routeService: RoutesService) { }
@@ -36,7 +35,10 @@ export class ListComponent implements OnInit, OnChanges {
   setActiveRoute(id: number){
     this.activateRoute.emit(id);
     this.activeId = id;
-    this.closeSidebar.emit(true);
+
+    if(window.innerWidth <= 800) {
+      this.closeSidebar.emit(true);
+    }
   }
 
   setFilter(value: string){

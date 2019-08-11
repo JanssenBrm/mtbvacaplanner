@@ -11,6 +11,12 @@
   margin: .5rem;
 }
 
+.mainrow {
+  display: flex;
+  flex-direction:row;
+  margin: .5rem;
+}
+
 .itemrow {
   display: flex;
   flex-direction:row;
@@ -27,7 +33,7 @@
 .label {
   margin-right: .5rem;
   font-weight: bold;
-  width: 8rem;
+  min-width: 8rem;
 }
 
 .span{
@@ -40,7 +46,17 @@ img {
   margin-right: .5rem;
 }
 
+.value{
+  word-break: break-all;
+}
+
 
 .clickable:hover{
   cursor: pointer;
+}
+
+@media only screen and (max-width: 500px) {
+  .mainrow {
+    flex-direction: column;
+  }
 }

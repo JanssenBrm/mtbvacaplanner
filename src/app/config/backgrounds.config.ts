@@ -3,6 +3,15 @@ import XYZ from 'ol/source/XYZ.js'
 
 export const BACKGROUNDS = [
   {
+    name: 'background_googlemaps',
+    title: 'Satellite',
+    layer: new TileLayer({
+      source: new XYZ({
+        url: 'http://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}'
+      })
+    })
+  },
+  {
     name: 'background_opencyclemap',
     title: 'Open Cycle Map',
     layer: new TileLayer({
@@ -17,15 +26,6 @@ export const BACKGROUNDS = [
     layer: new TileLayer({
       source: new XYZ({
         url: 'http://a.tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png'
-      })
-    })
-  },
-  {
-    name: 'background_googlemaps',
-    title: 'Satellite',
-    layer: new TileLayer({
-      source: new XYZ({
-        url: 'http://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}'
       })
     })
   },

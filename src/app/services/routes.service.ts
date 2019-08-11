@@ -183,7 +183,6 @@ export class RoutesService {
           };
         })
       ).subscribe(res => {
-        console.log('start download:',res);
         const url = window.URL.createObjectURL(res.data);
         const a = document.createElement('a');
         document.body.appendChild(a);

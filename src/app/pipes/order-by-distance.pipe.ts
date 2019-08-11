@@ -12,7 +12,6 @@ export class OrderByDistancePipe implements PipeTransform {
     let result = routes;
     if (routes && position && position.length > 0) {
       result = routes.map(r => {
-        console.log(position, r.ride.start);
         r.travelDistance = this.routeService.getDistance([position, r.ride.start])
         return r;
       });

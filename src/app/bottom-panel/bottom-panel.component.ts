@@ -6,14 +6,6 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
   templateUrl: './bottom-panel.component.html',
   styleUrls: ['./bottom-panel.component.css'],
   animations: [
-    trigger('changeDivSize', [
-      state('contentUp', style({
-        height: '40vh'
-      })),
-      state('contentDown', style({
-        height: 'auto'
-      }))
-    ]),
   ]
 })
 export class BottomPanelComponent implements OnInit, OnChanges {

@@ -7,7 +7,7 @@ export const BACKGROUNDS = [
     title: 'Satellite',
     layer: new TileLayer({
       source: new XYZ({
-        url: 'http://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}'
+        url: 'https://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}'
       })
     })
   },
@@ -25,7 +25,7 @@ export const BACKGROUNDS = [
     title: 'OSM Hike & Bike',
     layer: new TileLayer({
       source: new XYZ({
-        url: 'http://a.tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png'
+        url: 'https://a.tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png'
       })
     })
   },

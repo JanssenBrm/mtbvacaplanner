@@ -2,9 +2,6 @@
   font-size: smaller;
 }
 
-.overview{
-  padding: 0 1rem;
-}
 .row {
   display: flex;
   flex-direction:row;

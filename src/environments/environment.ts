@@ -5,6 +5,5 @@
 
 export const environment = {
   production: false,
-  GOOGLE_API_URL: '/proxy/google',
-  GOOGLE_API_KEY: 'AIzaSyBoBhie3gnfkqOMgK-V8S_3TaKkK--2Wyg'
+  GOOGLE_API_URL: '/proxy/google'
 };

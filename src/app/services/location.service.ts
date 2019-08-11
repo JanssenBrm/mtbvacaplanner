@@ -10,7 +10,7 @@ export class LocationService {
 
   constructor(private http: HttpClient) { }
 
-  API_KEY = 'AIzaSyDCMiWfCYMjwSfTF1QMO4az2TsUrftTNFw';
+  API_KEY = 'test';
 
   getPointsOfInterest(lat, lon, type, range = 10000){
 

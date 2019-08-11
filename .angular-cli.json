@@ -56,5 +56,23 @@
   "defaults": {
     "styleExt": "css",
     "component": {}
+  },
+  "configurations": {
+    "development": {
+      "fileReplacements": [
+        {
+          "replace": "src/index.html",
+          "with": "files/index_development.html"
+        }
+      ]
+    },
+    "production": {
+      "fileReplacements": [
+        {
+          "replace": "src/index.html",
+          "with": "files/index_production.html"
+        }
+      ]
+    }
   }
 }

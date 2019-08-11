@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {RoutesService} from "./services/routes.service";
+import {environment} from "../environments/environment";
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,7 @@ export class AppComponent implements OnInit {
   routes: any;
   activeRouteId: number;
   activeRoute: any;
+
 
   constructor(private routeService: RoutesService) { }
 

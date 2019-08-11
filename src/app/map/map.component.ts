@@ -10,10 +10,11 @@ import {RoutesService} from "../services/routes.service";
 import {transform as transformProj} from 'ol/proj.js';
 import {LocationService} from "../services/location.service";
 import Feature from 'ol/Feature.js';
-import {Icon, Style} from 'ol/style.js';
+import {Fill, Stroke, Icon, Style, Circle as CircleStyle, Text as TextStyle} from 'ol/style.js';
 import Point from 'ol/geom/Point.js';
 import Overlay from 'ol/Overlay';
 import {BACKGROUNDS} from "../config/backgrounds.config";
+import {text} from "@angular/core/src/render3/instructions";
 
 @Component({
   selector: 'app-map',
@@ -34,7 +35,7 @@ export class MapComponent implements OnInit, OnChanges {
   layers: any[];
 
   poiLayers = [];
-  poiTypes = ['parking', 'restaurant', 'cafe'];
+  poiTypes = [/*'parking', 'restaurant', 'cafe'*/]; // Commented for charging places api
 
   routeLayer: any;
 
@@ -77,7 +78,8 @@ export class MapComponent implements OnInit, OnChanges {
       style: function(feature) {
         return feature.get('style');
       },
-      source: new VectorSource({features: []})
+      source: new VectorSource({features: []}),
+      zIndex: 999
     });
     this.routeLayer.set('name', `info_route`);
     this.routeLayer.set('title', 'Route waypoints');
@@ -159,12 +161,12 @@ export class MapComponent implements OnInit, OnChanges {
           this.getPOISource(type).addFeatures(this.activeRoute.pois.filter(p => p.type === type).map(p => this.createFeature(p.name, p.location, p.type)));
         });
       }
+    }
 
-      if (this.activeRoute){
-        const feature = this.createFeature('Start', this.activeRoute.ride.start, 'start');
-        this.routeLayer.getSource().clear();
-        this.routeLayer.getSource().addFeature(feature);
-      }
+    if (this.activeRoute){
+      const features = this.activeRoute.ride.routepois.map(p => this.createFeature(p.name, p.location, p.type));
+      this.routeLayer.getSource().clear();
+      this.routeLayer.getSource().addFeatures(features);
     }
   }
   getPointsOfInterest(type: string){
@@ -195,13 +197,35 @@ export class MapComponent implements OnInit, OnChanges {
     });
   }
 
+  createPointStyle(name) {
+
+    const textColor = '#00A2FF';
+
+    return new Style({
+      image: new CircleStyle({
+        radius: 12,
+        fill: new Fill({color: 'rgba(255, 255, 255, 1)'}),
+        stroke: new Stroke({color: textColor, width: 3})
+      }),
+      text: new TextStyle({
+        text: name,
+        fill: new Fill({color: textColor}),
+      })
+    });
+  }
+
   createFeature(name, location, type){
     const feature = new Feature(new Point(location));
     feature.setProperties({
       location_name: name
     });
     feature.getGeometry().transform('EPSG:4326', 'EPSG:3857');
-    feature.set('style', this.createStyle(`assets/${type}.png`, undefined));
+
+    if(type !== 'point') {
+      feature.set('style', this.createStyle(`assets/${type}.png`, undefined));
+    } else {
+      feature.set('style', this.createPointStyle(name));
+    }
 
     return feature
   }

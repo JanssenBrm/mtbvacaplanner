@@ -94,7 +94,6 @@ export class RoutesService {
         const obj = parser.parseFromString(data, 'text/xml');
         const name = obj.getElementsByTagName("metadata")[0].getElementsByTagName("name")[0].textContent
           .replace('GPX Download:', '');
-
         const ride = this.getRideInfo([].slice.call(obj.getElementsByTagName("trkseg")[0].getElementsByTagName("trkpt")).map(p => {
           return {
             lat: +p.getAttribute('lat'),
@@ -116,11 +115,20 @@ export class RoutesService {
     let center = this.getCenter(points.map(p => [p.lon, p.lat]));
     let start = [points[0].lon, points[0].lat];
 
+    let routepois = [{name: 'Start', location: start, type: 'start'}, {name: 'Finish', location: [points[points.length - 1].lon,points[points.length - 1].lat], type: 'finish'} ];
+
+
     let tmpDist = 0;
+    let prevDistPoi = 0;
     points.forEach((p, idx) => {
 
       tmpDist = tmpDist + (idx > 0 ? this.getDistance([[p.lon, p.lat], [points[idx - 1].lon, points[idx - 1].lat]]) : 0);
       heightProfile.push([tmpDist, p.elevation]);
+
+      if(Math.floor(tmpDist) > prevDistPoi) {
+        prevDistPoi = Math.floor(tmpDist);
+        routepois.push({name: '' + prevDistPoi,  location: [p.lon,p.lat], type: 'point'});
+      }
 
       if(idx > 0){
         const diff = Math.round(p.elevation - points[idx - 1].elevation);
@@ -136,6 +144,8 @@ export class RoutesService {
 
     const duration = moment("2010-01-01").startOf('day').milliseconds(durationSec).format('HH:mm');
 
+    routepois
+
     return {
       ascent,
       descent,
@@ -143,7 +153,8 @@ export class RoutesService {
       duration,
       distance,
       center,
-      start
+      start,
+      routepois
     }
   }
 

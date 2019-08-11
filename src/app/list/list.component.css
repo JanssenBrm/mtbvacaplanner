@@ -4,12 +4,19 @@
   flex-direction: column;
   background-color: #fdfdfd;
   font-size: smaller;
-  width:100%;
 }
 
 .list{
-  height: 100%;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.listcontainer{
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+  overflow:auto;
 }
 
 .route{
@@ -49,11 +56,19 @@
 .filter {
   display: flex;
   align-items: center;
-  justify-content: stretch;
-  padding: 1rem 1rem;
+  flex-direction: column;
+  padding: 0rem 1rem;
   font-size: medium;
   background-color: #404040;
   box-shadow: 0 3px 30px rgba(0,0,0,0.05), 0 3px 30px rgba(0,0,0,0.1);
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .filter input{
@@ -66,4 +81,45 @@
 }
 .filter i {
   color: #616161;
+}
+
+.filter div{
+  width: 100%;
+}
+
+
+.list {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.actions {
+  visibility: hidden;
+}
+
+.actions i {
+  color: white;
+}
+
+@media only screen and (max-width: 1024px) {
+  .listcontainer{
+    width: 25vw;
+  }
+}
+
+
+@media only screen and (max-width: 800px) {
+  .listcontainer{
+    width: 30vw;
+  }
+
+  .actions{
+    visibility: visible;
+    background-color: #404040;
+    color:white;
+    display: flex;
+    justify-content: flex-end;
+    padding: .5rem
+  }
 }

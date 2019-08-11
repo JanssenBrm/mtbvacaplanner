@@ -35,8 +35,21 @@
 
 .content{
   margin-top: 2rem;
+  overflow: auto
 }
 
 .actions i{
   padding: 1rem 1.5rem;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+}
+
+
+@media only screen and (max-width: 1024px) {
+  .content {
+    margin-top: 1rem;
+  }
 }

@@ -1,28 +1,36 @@
-<div class="filter">
-  <input type="text" (keyup)="setFilter($event.target.value)"/>
-  <i class="fas fa-search"></i>
-</div>
-<div class="list">
-  <div *ngFor="let route of getFilteredRoutes(routes)" (click)="setActiveRoute(route.id)" class="route" [class.active]="route.id === activeId">
-    <div class="route_title">
-      {{route.name}}
+<div class="listcontainer">
+  <div class="filter">
+    <div class="actions">
+      <i class="fa fa-close" (click)="closeList()"></i>
     </div>
-    <div class="info">
-      <div>
-        <i class="fas fa-ruler-horizontal"></i>
-        <span>{{route.ride.distance}}</span>km
+    <div class="search">
+      <input type="text" (keyup)="setFilter($event.target.value)"/>
+      <i class="fas fa-search"></i>
+    </div>
+  </div>
+  <div class="list">
+    <div *ngFor="let route of getFilteredRoutes(routes)" (click)="setActiveRoute(route.id)" class="route"
+         [class.active]="route.id === activeId">
+      <div class="route_title">
+        {{route.name}}
       </div>
-      <div>
-        <i class="fas fa-stopwatch"></i>
-        <span>{{route.ride.duration}}</span>
-      </div>
-      <div>
-        <i class="fas fa-arrow-up"></i>
-        <span>{{route.ride.ascent}}</span>m
-      </div>
-      <div>
-        <i class="fas fa-arrow-down"></i>
-        <span>{{route.ride.descent}}</span>m
+      <div class="info">
+        <div>
+          <i class="fas fa-ruler-horizontal"></i>
+          <span>{{route.ride.distance}}</span>km
+        </div>
+        <div>
+          <i class="fas fa-stopwatch"></i>
+          <span>{{route.ride.duration}}</span>
+        </div>
+        <div>
+          <i class="fas fa-arrow-up"></i>
+          <span>{{route.ride.ascent}}</span>m
+        </div>
+        <div>
+          <i class="fas fa-arrow-down"></i>
+          <span>{{route.ride.descent}}</span>m
+        </div>
       </div>
     </div>
   </div>

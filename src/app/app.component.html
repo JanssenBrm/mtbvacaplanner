@@ -1,6 +1,9 @@
+<div class="header">
+  <app-mobile-header (toggle)="toggleSidebar(true)"></app-mobile-header>
+</div>
 <div class="main">
-  <div class="sidebar">
-    <app-list [routes]="routes" (activateRoute)="activateRoute($event)"></app-list>
+  <div class="sidebar" *ngIf="sidebar">
+    <app-list [routes]="routes" (activateRoute)="activateRoute($event)" (closeSidebar)="toggleSidebar(false)"></app-list>
   </div>
   <div class="content">
     <app-map [routes]="routes" [activeRouteId]="activeRouteId"></app-map>

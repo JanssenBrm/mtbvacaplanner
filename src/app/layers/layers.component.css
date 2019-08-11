@@ -45,3 +45,20 @@ h4{
 .legendentry img{
   margin-left: 1rem;
 }
+
+
+@media only screen and (max-width: 1024px) {
+  .selection {
+    width: 15vw;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .selection {
+    width: 20vw;
+  }
+
+  :host{
+    top: calc(2rem + 5vw);
+  }
+}

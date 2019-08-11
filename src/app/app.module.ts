@@ -15,6 +15,7 @@ import {LocationService} from "./services/location.service";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { OverviewComponent } from './overview/overview.component';
 import { LayersComponent } from './layers/layers.component';
+import { MobileHeaderComponent } from './mobile-header/mobile-header.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { LayersComponent } from './layers/layers.component';
     BottomPanelComponent,
     WeatherComponent,
     OverviewComponent,
-    LayersComponent
+    LayersComponent,
+    MobileHeaderComponent
   ],
   imports: [
     BrowserModule,

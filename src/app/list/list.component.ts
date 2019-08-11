@@ -10,10 +10,16 @@ export class ListComponent implements OnInit, OnChanges {
 
 
   @Input()
+  visible: boolean;
+
+  @Input()
   routes: any[];
 
   @Output()
   activateRoute: EventEmitter<number> = new EventEmitter();
+
+  @Output()
+  closeSidebar: EventEmitter<boolean> = new EventEmitter();
 
   filter: string;
 
@@ -30,6 +36,7 @@ export class ListComponent implements OnInit, OnChanges {
   setActiveRoute(id: number){
     this.activateRoute.emit(id);
     this.activeId = id;
+    this.closeSidebar.emit(true);
   }
 
   setFilter(value: string){
@@ -38,6 +45,10 @@ export class ListComponent implements OnInit, OnChanges {
 
   getFilteredRoutes(routes: any[]){
     return this.filter ? routes.filter(r => r.name.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0) : routes;
+  }
+
+  closeList(){
+    this.closeSidebar.emit(true);
   }
 
 }

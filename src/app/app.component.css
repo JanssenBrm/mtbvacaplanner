@@ -6,7 +6,6 @@
 }
 
 .sidebar {
-  width: 20vw;
   margin:0;
   padding:0;
   display:flex;
@@ -24,4 +23,45 @@
   background-color: #fdfdfd;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+}
+
+.header {
+  height: 5vh;
+  background-color: #404040;
+  color: white;
+  border: 0;
+  visibility: hidden;
+  display: none;
+}
+
+@media only screen and (max-width: 1024px) {
+  .bottompanel{
+    width: 71.5vw;
+  }
+}
+
+
+@media only screen and (max-width: 800px) {
+  .sidebar {
+    position: absolute;
+    left: 0;
+    z-index: 999;
+    top: 5vh;
+    height: 95vh;
+  }
+
+  .main{
+    height: 95vh;
+  }
+
+  .header{
+    visibility: visible;
+    display: flex;
+    padding: 0rem 1rem;
+    align-items: center;
+  }
+
+  .bottompanel{
+    width: 97.5vw;
+  }
 }

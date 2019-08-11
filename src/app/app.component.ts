@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
   activeRouteId: number;
   activeRoute: any;
 
+  sidebar = true;
 
   constructor(private routeService: RoutesService) { }
 
@@ -31,7 +32,15 @@ export class AppComponent implements OnInit {
   activateRoute(id: number){
     this.activeRouteId = id;
     this.activeRoute = Object.assign({}, this.routes.find(r => r.id === id));
+  }
 
+  toggleSidebar(state){
+
+    if (state === undefined) {
+      this.sidebar = !this.sidebar;
+    } else {
+      this.sidebar = state;
+    }
   }
 
 }

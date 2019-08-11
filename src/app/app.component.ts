@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
     this.activeRoute = Object.assign({}, this.routes.find(r => r.id === id));
   }
 
-  toggleSidebar(state){
+  toggleSidebar(state?){
 
     if (state === undefined) {
       this.sidebar = !this.sidebar;

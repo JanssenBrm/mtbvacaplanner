@@ -9,6 +9,10 @@
     </div>
   </div>
   <div class="list">
+    <div class="loading" *ngIf="!routes || routes.length == 0">
+      <i class="fa fa-3x fa-spinner fa-spin"></i>
+      Loading routes...
+    </div>
     <div *ngFor="let route of getFilteredRoutes(routes) | orderByDistance:userPosition" (click)="setActiveRoute(route.id)" class="route"
          [class.active]="route.id === activeId">
       <div class="route_title">

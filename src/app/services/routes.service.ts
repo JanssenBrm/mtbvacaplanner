@@ -15,6 +15,7 @@ import {forkJoin} from "rxjs/observable/forkJoin";
 import * as moment from 'moment';
 import * as turf from '@turf/turf';
 import {ResponseContentType} from "@angular/http";
+import { saveAs } from 'file-saver';
 
 @Injectable()
 export class RoutesService {
@@ -183,6 +184,7 @@ export class RoutesService {
           };
         })
       ).subscribe(res => {
+        /*console.log(res);
         const url = window.URL.createObjectURL(res.data);
         const a = document.createElement('a');
         document.body.appendChild(a);
@@ -191,7 +193,8 @@ export class RoutesService {
         a.download = res.filename;
         a.click();
         window.URL.revokeObjectURL(url);
-        a.remove(); // remove the element
+        a.remove(); // remove the element*/
+        saveAs(res.data, res.filename);
       });
   }
 

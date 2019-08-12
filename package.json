@@ -27,6 +27,7 @@
     "@types/highcharts": "^5.0.44",
     "angular-highcharts": "^5.2.13",
     "core-js": "^2.4.1",
+    "file-saver": "^2.0.2",
     "highcharts": "^7.1.2",
     "highcharts-angular": "^2.4.0",
     "lodash": "^4.17.15",

@@ -63,13 +63,13 @@ export class ChartComponent implements OnInit, OnChanges {
 
     this.chartOptions.tooltip = {
       formatter: function () {
-        console.log(this.x);
         const distance = Math.round(this.x * 10) / 10;
         const height = Math.round(this.y);
         return 'Distance: <b>' + distance +
           'km</b><br/>Height: <b>' + height + 'm</b>';
       }
     }
+    this.updateFlag = true;
   }
 
 

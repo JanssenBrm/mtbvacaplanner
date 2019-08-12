@@ -40,6 +40,9 @@
   display:flex;
   flex:6;
   max-height:30vh;
+  width:100%;
+  justify-content: stretch;
+  align-items: stretch;
 }
 
 .actions i{
@@ -49,11 +52,4 @@
 .panel {
   display: flex;
   flex-direction: column;
-}
-
-
-@media only screen and (max-width: 1024px) {
-  .content {
-    margin-top: 1rem;
-  }
 }

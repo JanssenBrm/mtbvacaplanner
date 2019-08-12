@@ -1,1 +1,17 @@
+:host, highcharts-chart{
+  display:block;
+  min-width: 75vw;
+}
 
+@media only screen and (max-width: 1024px) {
+  :host, highcharts-chart{
+    min-width: 70vw;
+  }
+}
+
+
+@media only screen and (max-width: 800px) {
+  :host, highcharts-chart{
+    min-width: 95vw;
+  }
+}

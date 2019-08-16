@@ -95,13 +95,13 @@ export class RoutesService {
     return this.http.get(route.path, {responseType: 'text'}).pipe(
       map(data => {
         const obj = parser.parseFromString(data, 'text/xml');
-        const name = obj.getElementsByTagName("name")[0].textContent
+        const name = obj.getElementsByTagName("trk")[0].getElementsByTagName("name")[0].textContent
           .replace('GPX Download:', '');
         const ride = this.getRideInfo([].slice.call(obj.getElementsByTagName("trkseg")[0].getElementsByTagName("trkpt")).map(p => {
           return {
             lat: +p.getAttribute('lat'),
             lon: +p.getAttribute('lon'),
-            elevation: +p.getElementsByTagName("ele")[0].textContent,
+            elevation: p.getElementsByTagName("ele")[0]? +p.getElementsByTagName("ele")[0].textContent : 0,
             time: p.getElementsByTagName("time").length > 0 ? moment(p.getElementsByTagName("time")[0].textContent) : 0
           }
         }));

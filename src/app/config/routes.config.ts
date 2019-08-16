@@ -2,7 +2,15 @@ export const ROUTES = [
   {
     path: 'assets/files/2012-05-01_86035678_Panoramic Tour (EDIT).gpx',
     info: 'https://www.komoot.com/tour/86035678'
-  },{
+  },
+  {
+    path: 'assets/files/barentalhutte.gpx',
+    info: 'https://www.routeyou.com/nl-at/route/view/6528618/mountainbikeroute/barentalhutte'
+  },
+  {
+    path: 'assets/files/bielefelderhutte.gpx',
+    info: 'https://www.routeyou.com/nl-at/route/view/6511853/mountainbikeroute/bielefelderhutte'
+  }, {
     path: 'assets/files/bergfextour_haiming-haiming--sattele--oetz.gpx',
     info: 'https://nl.bergfex.com/sommer/tirol/touren/mountainbike/1420,haiming-haiming--sattele--oetz/'
   },
@@ -28,9 +36,6 @@ export const ROUTES = [
   }, {
     path: 'assets/files/bergfextour_mtb-oetz--umhausen--schweinfurter-huette--stuibenfall.gpx',
     info: 'https://nl.bergfex.com/sommer/tirol/touren/mountainbike/195303,mtb-oetz--umhausen--schweinfurter-huette--stuibenfall/'
-  }, {
-    path: 'assets/files/2019-08-11_85599104_GPX Download_ Oetz – Piburger See Loop from Kühtaistraße.gpx',
-    info: 'https://www.komoot.com/smarttour/598648#og%23'
   }, {
     path: 'assets/files/2019-08-11_85599628_GPX Download_ Piburger See – Oetz Loop from Start.gpx',
     info: 'https://www.komoot.com/smarttour/437984#og%23'

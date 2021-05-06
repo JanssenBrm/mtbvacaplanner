@@ -28,7 +28,7 @@
     "angular-highcharts": "^5.2.13",
     "core-js": "^2.4.1",
     "file-saver": "^2.0.2",
-    "highcharts": "^7.1.2",
+    "highcharts": "^9.0.0",
     "highcharts-angular": "^2.4.0",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
